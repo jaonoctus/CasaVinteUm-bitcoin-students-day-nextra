@@ -1,0 +1,31 @@
+# Next.js
+.next
+out
+build
+dist
+
+# Pagefind search index (generated at build time)
+public/_pagefind
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Misc
+.DS_Store
+.idea
+.fleet
+.history
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts

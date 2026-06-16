@@ -1,0 +1,130 @@
+---
+title: Building a Lightning App
+description: with lorenzo
+---
+
+import { Callout, Tabs, Steps } from 'nextra/components'
+
+# Building a Lightning App
+
+Neste workshop, os participantes terão a oportunidade de aprender os primeiros passos para integrar o Bitcoin em aplicações reais. A ideia é aprender a conectar uma aplicação a um node da `Lightning Network` e usar os RPCs do [`LND`](https://github.com/lightningnetwork/lnd) para criar as funcionalidades necessárias para receber e enviar pagamentos pela Lighting Network.
+
+## Tarefas preparatórias
+
+<Callout type="warning">
+  Para garantir que todos possam aproveitar ao máximo as atividades práticas, os
+  participantes devem realizar as seguintes tarefas <u>**antes do workshop**</u>.
+</Callout>
+
+<Callout type="info">
+  Durante o evento, utilizaremos a interface de linha de comando, portanto, a
+  familiaridade básica com o terminal do sistema operacional é recomendada.
+</Callout>
+
+### 1. Instalar o Docker
+
+<Tabs items={['GNU/Linux', 'MacOS', 'Windows']}>
+  <Tabs.Tab>
+    <Steps>
+    #### Instale o Docker via o script oficial
+
+    ```bash filename="Terminal"
+    curl -fsSL https://get.docker.com | sh
+    ```
+
+    #### Verifique a instalação do Docker
+
+    ```bash filename="Terminal"
+    docker run --rm hello-world
+    ```
+
+    ```text filename="Você verá algo como:"
+    Unable to find image 'hello-world:latest' locally
+    latest: Pulling from library/hello-world
+    198f93fd5094: Pull complete
+    Digest: sha256:a0dfb02aac212703bfcb339d77d47ec32c8706ff250850ecc0e19c8737b18567
+    Status: Downloaded newer image for hello-world:latest
+
+    Hello from Docker!
+    ```
+    </Steps>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    <Steps>
+    #### Instale o Docker Desktop
+
+    - [Instruções](https://docs.docker.com/desktop/setup/install/mac-install/)
+
+    #### Verifique a instalação do Docker
+
+    ```bash filename="Terminal"
+    docker run --rm hello-world
+    ```
+
+    ```text filename="Você verá algo como:"
+    Unable to find image 'hello-world:latest' locally
+    latest: Pulling from library/hello-world
+    198f93fd5094: Pull complete
+    Digest: sha256:a0dfb02aac212703bfcb339d77d47ec32c8706ff250850ecc0e19c8737b18567
+    Status: Downloaded newer image for hello-world:latest
+
+    Hello from Docker!
+    ```
+    </Steps>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    <Steps>
+    #### Instale o WSL
+
+    - [Instruções](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+    #### Instale o Docker Desktop
+
+    - [Instruções](https://docs.docker.com/desktop/setup/install/windows-install/)
+
+    #### Verifique a instalação do Docker
+
+    ```bash filename="Terminal"
+    docker run --rm hello-world
+    ```
+
+    ```text filename="Você verá algo como:"
+    Unable to find image 'hello-world:latest' locally
+    latest: Pulling from library/hello-world
+    198f93fd5094: Pull complete
+    Digest: sha256:a0dfb02aac212703bfcb339d77d47ec32c8706ff250850ecc0e19c8737b18567
+    Status: Downloaded newer image for hello-world:latest
+
+    Hello from Docker!
+    ```
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+### 2. Instalar o NodeJS
+
+- [Instruções](https://github.com/nvm-sh/nvm)
+
+### 3. Instalar o Polar
+
+- [Instruções](https://lightningpolar.com/)
+
+### 4. Clonar o repositório do workshop
+
+```bash filename="Terminal"
+git clone https://github.com/CasaVinteUm/workshop-ln-app
+```
+
+## Formato
+
+- Os participantes serão apresentados a uma aplicação desenvolvida previamente que implementa um jogo multiplayer que roda no navegador.
+- Os participantes também serão apresentados a ferramentas que facilitam o desenvolvimento de aplicações conectadas à nodes Lightning.
+- Por fim, os participantes serão guiados por uma série de etapas necessárias para implementar as funcionalidades de envio e recebimento de pagamentos.
+
+## Perguntas motivadoras
+
+- É necessário alguma permissão para rodar um node Lightning para enviar e receber pagamentos?
+- Quais as vantagens de ter uma aplicação que envolve pagamentos conectada a rede Lightning?
+- Por que usar uma aplicação de segunda camada do Bitcoin, a Lightning Network ao invés de Bitcoin diretamente?

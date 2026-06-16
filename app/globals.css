@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import 'tailwindcss';
+@import 'nextra-theme-docs/style.css';
+
+@variant dark (&:where(.dark *));
+
+@theme {
+  --font-sans: 'Public Sans', sans-serif;
+  --color-bitcoin: #f7931a;
+}

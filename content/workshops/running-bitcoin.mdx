@@ -1,0 +1,285 @@
+---
+title: Running Bitcoin
+description: with edil & jaonoctus
+---
+
+import { Callout, Tabs, Steps } from 'nextra/components'
+import { GetDescriptor } from '../../components/GetDescriptor'
+
+# Running Bitcoin
+
+Este workshop convida os participantes a vivenciarem o Bitcoin de forma prática e direta. Inspirado na famosa mensagem de [Hal Finney](https://en.wikipedia.org/wiki/Hal_Finney_(computer_scientist)), o encontro propõe que cada estudante configure e rode seu próprio nó Bitcoin em uma rede de testes (signet), sincronize com um nó minerador do instrutor e realize transações utilizando as ferramentas de linha de comando do Bitcoin Core. A proposta é oferecer uma introdução técnica ao protocolo do Bitcoin por dentro, explorando seus principais conceitos por meio da interação com a rede e com a estrutura interna de blocos e transações.
+
+## Tarefas preparatórias
+
+<Callout type="warning">
+  Para garantir que todos possam aproveitar ao máximo as atividades práticas, os
+  participantes devem realizar as seguintes tarefas <u>**antes do workshop**</u>.
+</Callout>
+
+<Callout type="info">
+  Durante o evento, utilizaremos a interface de linha de comando, portanto, a
+  familiaridade básica com o terminal do sistema operacional é recomendada.
+</Callout>
+
+### 1. Instalar o Docker
+
+<Tabs items={['GNU/Linux', 'MacOS', 'Windows']}>
+  <Tabs.Tab>
+    <Steps>
+    #### Instale o Docker via o script oficial
+
+    ```bash filename="Terminal"
+    curl -fsSL https://get.docker.com | sh
+    ```
+
+    #### Verifique a instalação do Docker
+
+    ```bash filename="Terminal"
+    docker run --rm hello-world
+    ```
+
+    ```text filename="Você verá algo como:"
+    Unable to find image 'hello-world:latest' locally
+    latest: Pulling from library/hello-world
+    198f93fd5094: Pull complete
+    Digest: sha256:a0dfb02aac212703bfcb339d77d47ec32c8706ff250850ecc0e19c8737b18567
+    Status: Downloaded newer image for hello-world:latest
+
+    Hello from Docker!
+    ```
+    </Steps>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    <Steps>
+    #### Instale o Docker Desktop
+
+    - [Instruções](https://docs.docker.com/desktop/setup/install/mac-install/)
+
+    #### Verifique a instalação do Docker
+
+    ```bash filename="Terminal"
+    docker run --rm hello-world
+    ```
+
+    ```text filename="Você verá algo como:"
+    Unable to find image 'hello-world:latest' locally
+    latest: Pulling from library/hello-world
+    198f93fd5094: Pull complete
+    Digest: sha256:a0dfb02aac212703bfcb339d77d47ec32c8706ff250850ecc0e19c8737b18567
+    Status: Downloaded newer image for hello-world:latest
+
+    Hello from Docker!
+    ```
+    </Steps>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    <Steps>
+    #### Instale o WSL
+
+    - [Instruções](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+    #### Instale o Docker Desktop
+
+    - [Instruções](https://docs.docker.com/desktop/setup/install/windows-install/)
+
+    #### Verifique a instalação do Docker
+
+    ```bash filename="Terminal"
+    docker run --rm hello-world
+    ```
+
+    ```text filename="Você verá algo como:"
+    Unable to find image 'hello-world:latest' locally
+    latest: Pulling from library/hello-world
+    198f93fd5094: Pull complete
+    Digest: sha256:a0dfb02aac212703bfcb339d77d47ec32c8706ff250850ecc0e19c8737b18567
+    Status: Downloaded newer image for hello-world:latest
+
+    Hello from Docker!
+    ```
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+### 2. Baixar a imagem container do Bitcoin Core
+
+<Steps>
+#### Clone o repositório do workshop
+
+```bash filename="Terminal"
+git clone https://github.com/vinteum-bdl/infra-signet-docker
+```
+
+#### Acesse o diretório do repositório
+
+```bash filename="Terminal"
+cd infra-signet-docker
+```
+
+#### Builde a imagem do container
+
+```bash filename="Terminal"
+docker compose build --no-cache bitcoin-node
+```
+
+#### Inicie o container em modo `detached`
+
+```bash filename="Terminal"
+docker compose up bitcoin-node -d
+```
+
+#### Acesse o terminal do container
+
+```bash filename="Terminal"
+docker compose exec --user student -it bitcoin-node bash
+```
+</Steps>
+
+## Leituras recomendadas
+
+- [Documentação do Bitcoin Core – seção `bitcoin-cli`](https://bitcoincore.org/en/doc/29.0.0/)
+  - Comandos: `help`, `getblockchaininfo`, `createwallet`, `getbalance`, `getbalances`, `importdescriptors`, `getpeerinfo`, `addnode`, `getnewaddress`, `sendtoaddress`, `getrawtransaction`, `getrawmempool`, `getblockhash`, `getblockheader`
+- [Capítulos 2 e 3 do livro Mastering Bitcoin (Andreas M. Antonopoulos)](https://github.com/bitcoinbook/bitcoinbook/tree/develop)
+- [Aulas 1 a 4 do curso Protocolo Bitcoin (Edil Medeiros para a Universidade de Brasília)](https://www.youtube.com/playlist?list=PLfdR3_dt2rbexb-ohbaLLzAuNAp7Ypt8u&si=odPX6duIX-BYVcGr)
+
+## Formato
+
+- Configuração de um nó Bitcoin na rede `signet`
+- Sincronização com um nó minerador
+- Execução de transações reais entre participantes
+- Análise e construção de transações manualmente via `bitcoin-cli`
+- Discussões guiadas sobre os fundamentos técnicos explorados em cada etapa
+
+## Perguntas motivadoras
+
+- O que é um full node? Quais funções ele realiza?
+- O que é uma wallet? Quais funções ela realiza?
+- Quais são os componentes de uma transação de Bitcoin? Qual a função de cada um?
+- O que é um UTXO? Como ele se relaciona com o saldo de uma carteira?
+- O que define a propriedade de uma moeda no Bitcoin?
+- Como ocorre a autorização para gastar uma moeda? Qual é o papel das assinaturas digitais?
+- Qual a função da blockchain? Ela serve apenas como histórico?
+- O que é o cabeçalho de um bloco? Que informações ele contém e para que servem?
+- O que é e como funciona a prova de trabalho?
+- O que impede que um agente malicioso altere o histórico da blockchain?
+- O que significa "rodar um nó" em termos de soberania e verificação individual?
+- É possível participar da rede Bitcoin sem depender de terceiros? O que isso exige?
+
+## Comandos
+
+#### Iniciar o nó
+
+```bash filename="Terminal"
+bitcoind
+```
+
+#### Exibe informações sobre o estado atual da blockchain
+
+```bash filename="Terminal"
+bitcoin-cli getblockchaininfo
+```
+
+#### Lista todos os comandos disponíveis no bitcoin-cli
+
+```bash filename="Terminal"
+bitcoin-cli help
+```
+
+#### Exibe detalhes sobre o comando getblockchaininfo
+
+```bash filename="Terminal"
+bitcoin-cli help getblockchaininfo
+```
+
+#### Cria uma nova carteira com o nome especificado
+
+```bash filename="Terminal"
+bitcoin-cli createwallet "<name>"
+```
+
+#### Mostra o saldo da carteira ativa
+
+```bash filename="Terminal"
+bitcoin-cli getbalance
+```
+
+#### Importa um descriptor para a carteira
+
+```bash filename="Terminal"
+bitcoin-cli importdescriptors '[{"desc": "<descriptor>", "timestamp": 0}]'
+```
+
+#### Exibe informações sobre os peers conectados ao nó
+
+```bash filename="Terminal"
+bitcoin-cli getpeerinfo
+```
+
+#### Conecta a um node específico
+
+```bash filename="Terminal"
+bitcoin-cli addnode <node IP> onetry
+```
+
+#### Gera um novo endereço de recebimento
+
+```bash filename="Terminal"
+bitcoin-cli getnewaddress
+```
+
+#### Envia bitcoins para um endereço especificado
+
+```bash filename="Terminal"
+bitcoin-cli -named sendtoaddress address="<address>" amount=<amount> fee_rate=1
+```
+
+#### Mostra os saldos detalhados da carteira
+
+```bash filename="Terminal"
+bitcoin-cli getbalances
+```
+
+#### Exibe os detalhes de uma transação pelo txid
+
+```bash filename="Terminal"
+bitcoin-cli getrawtransaction "<txid>" 1
+```
+
+#### Lista todas as transações pendentes no mempool
+
+```bash filename="Terminal"
+bitcoin-cli getrawmempool
+```
+
+#### Retorna o hash do bloco na altura especificada
+
+```bash filename="Terminal"
+bitcoin-cli getblockhash <height>
+```
+
+#### Exibe o cabeçalho de um bloco pelo hash
+
+```bash filename="Terminal"
+bitcoin-cli getblockheader "<block hash>"
+```
+
+#### Exibe o cabeçalho de um bloco em formato bruto
+
+```bash filename="Terminal"
+bitcoin-cli getblockheader <block hash> false
+```
+
+#### Exibe os detalhes de uma transação pelo txid
+
+```bash filename="Terminal"
+bitcoin-cli getrawtransaction <txid> 1
+```
+
+## Descriptor
+
+Um descriptor é uma string que descreve como derivar endereços e chaves públicas/privadas em uma carteira de Bitcoin. Ele define a estrutura e o formato dos endereços, bem como os tipos de scripts que podem ser usados para gastar os fundos associados a esses endereços.
+
+<GetDescriptor />
