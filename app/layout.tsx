@@ -16,17 +16,19 @@ export const metadata: Metadata = {
 const navbar = (
   <Navbar
     logo={<b>Bitcoin Students Day</b>}
-    projectLink="https://github.com/vinteum-bdl"
+    projectLink="https://github.com/CasaVinteUm/CasaVinteUm-bitcoin-students-day-nextra"
   />
 )
 
 const footer = (
   <Footer>
-    {new Date().getFullYear()} © Bitcoin Students Day, by{' '}
-    <a href="https://vinteum.org" target="_blank" rel="noreferrer">
-      Vinteum
-    </a>
-    .
+    <p>
+      {new Date().getFullYear()} Bitcoin Students Day, by{' '}
+      <a href="https://vinteum.org" target="_blank" rel="noreferrer">
+        Vinteum
+      </a>
+      .
+    </p>
   </Footer>
 )
 
@@ -43,7 +45,9 @@ export default async function RootLayout({
           navbar={navbar}
           footer={footer}
           pageMap={await getPageMap()}
-          docsRepositoryBase="https://github.com/vinteum-bdl"
+          docsRepositoryBase="https://github.com/CasaVinteUm/CasaVinteUm-bitcoin-students-day-nextra"
+          editLink={null}
+          feedback={{ content: null }}
           sidebar={{ defaultMenuCollapseLevel: 1 }}
         >
           {children}

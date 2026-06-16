@@ -2,25 +2,37 @@
 
 import { useState, type FormEvent } from 'react'
 import { Pre, Code } from 'nextra/components'
-import { descriptors } from './descriptors'
 
 export function GetDescriptor() {
   const [email, setEmail] = useState('')
   const [descriptor, setDescriptor] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (!email) {
+    if (!email || loading) {
       return
     }
-    const digest = await crypto.subtle.digest(
-      'SHA-256',
-      new TextEncoder().encode(email)
-    )
-    const dataView = new DataView(digest.slice(-8))
-    const randomValue = dataView.getBigUint64(0, true)
-    const index = Number(randomValue % BigInt(descriptors.length))
-    setDescriptor(descriptors[index])
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/descriptor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      const data = (await res.json()) as { descriptor?: string; error?: string }
+      if (!res.ok || !data.descriptor) {
+        setError(data.error ?? 'Algo deu errado. Tente novamente.')
+        return
+      }
+      setDescriptor(data.descriptor)
+    } catch {
+      setError('Não foi possível obter o descriptor. Tente novamente.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (descriptor) {
@@ -47,11 +59,13 @@ export function GetDescriptor() {
         onChange={e => setEmail(e.target.value)}
         className="w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 outline-none focus:border-bitcoin focus:ring-2 focus:ring-bitcoin/30 dark:border-neutral-700"
       />
+      {error && <p className="text-sm text-red-500">{error}</p>}
       <button
         type="submit"
-        className="self-start rounded-md bg-bitcoin px-5 py-2 font-semibold text-black transition-colors hover:opacity-90"
+        disabled={loading}
+        className="self-start rounded-md bg-bitcoin px-5 py-2 font-semibold text-black transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Ok
+        {loading ? 'Carregando…' : 'Ok'}
       </button>
     </form>
   )
